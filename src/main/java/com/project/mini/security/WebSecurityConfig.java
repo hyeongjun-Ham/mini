@@ -1,7 +1,7 @@
 package com.project.mini.security;
 
-import com.project.mini.jwt.JwtAuthenticationFilter;
-import com.project.mini.jwt.JwtTokenProvider;
+import com.project.mini.security.jwt.JwtAuthenticationFilter;
+import com.project.mini.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

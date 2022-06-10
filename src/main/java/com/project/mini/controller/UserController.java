@@ -2,7 +2,7 @@ package com.project.mini.controller;
 
 import com.project.mini.dto.JoinRequestDto;
 import com.project.mini.dto.LoginRequestDto;
-import com.project.mini.jwt.JwtTokenProvider;
+import com.project.mini.security.jwt.JwtTokenProvider;
 import com.project.mini.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,5 +40,11 @@ public class UserController {
 
             return res;
         }
+    }
+
+    @PostMapping("/api/test")
+    public String test() {
+        System.out.println("테스트");
+        return "출력됨";
     }
 }

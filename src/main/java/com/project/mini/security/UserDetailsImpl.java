@@ -1,6 +1,6 @@
 package com.project.mini.security;
 
-import com.project.mini.domain.User;
+import com.project.mini.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

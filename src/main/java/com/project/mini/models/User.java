@@ -1,4 +1,4 @@
-package com.project.mini.domain;
+package com.project.mini.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

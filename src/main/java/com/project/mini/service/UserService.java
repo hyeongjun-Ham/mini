@@ -1,9 +1,9 @@
 package com.project.mini.service;
 
-import com.project.mini.domain.User;
+import com.project.mini.models.User;
 import com.project.mini.dto.JoinRequestDto;
 import com.project.mini.dto.LoginRequestDto;
-import com.project.mini.jwt.JwtTokenProvider;
+import com.project.mini.security.jwt.JwtTokenProvider;
 import com.project.mini.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,6 +35,12 @@ public class UserService {
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
             return "중복된 id 입니다.";
+        }
+
+        // 회원 닉네임 중복 확인
+        Optional<User> foundUserNickname = userRepository.findByNickname(requestDto.getNickname());
+        if (foundUserNickname.isPresent()) {
+            throw new IllegalArgumentException("사용자 닉네임이 이미 존재합니다.");
         }
 
         // 회원가입 조건
