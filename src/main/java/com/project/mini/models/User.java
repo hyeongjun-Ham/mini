@@ -32,15 +32,16 @@ public class User {
     @Column
     private int happypoint;
 
-    @OneToMany
+    @OneToMany(mappedBy = "users")
     @JoinColumn
     private List<Post> posts = new ArrayList<>();
+
     //happyPoint가 새로운 게시글이 들어왔을때  플러스
-    public void setHappypoint(Long happypoint) {
+    public void setHappypoint(int happypoint) {
         this.happypoint += happypoint;
     }
 
-    public void modifyHappypoint(Long happypoint , Long tempHappypoint){
+    public void modifyHappypoint(int happypoint , int tempHappypoint){
         this.happypoint += (happypoint-tempHappypoint);
     }
 

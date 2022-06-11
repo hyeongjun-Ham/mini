@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class PostDto {
-    private Long happypoint;
+    private int happypoint;
     private String img;
     private String content;
 }

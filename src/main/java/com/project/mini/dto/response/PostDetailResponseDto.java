@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostDetailResponseDto {
     private String nickname;
-    private Long happypoint;
+    private int happypoint;
     private String img;
     private String content;
     private String modifiedAt;

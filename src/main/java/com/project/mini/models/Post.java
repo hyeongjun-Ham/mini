@@ -38,7 +38,7 @@ public class Post {
     private List<Comment> comments = new ArrayList<>();
 
     @Column(nullable = false)
-    private Long happypoint;
+    private int happypoint;
 
     public Post(PostDto dto , User user){
         this.user = user;
