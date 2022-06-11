@@ -1,9 +1,11 @@
 package com.project.mini.controller;
 
 import com.project.mini.dto.CommentRequestDto;
+import com.project.mini.dto.CommentResponseDto;
 import com.project.mini.models.Comment;
 import com.project.mini.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +22,8 @@ public class CommentController {
     }
 
     @PostMapping("/api/comment/{postId}")
-    public void createComment(@PathVariable Long postId, @RequestBody CommentRequestDto requestDto) {
-        commentService.createComment(postId, requestDto);
+    public CommentResponseDto createComment(@PathVariable Long postId, @RequestBody CommentRequestDto requestDto) {
+        return commentService.createComment(postId, requestDto);
     }
 
     @PutMapping("/api/comment/{commentId}")
