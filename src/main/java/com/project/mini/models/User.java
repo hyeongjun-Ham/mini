@@ -1,10 +1,13 @@
 package com.project.mini.models;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +32,19 @@ public class User {
     @Column
     private int happypoint;
 
+    @OneToMany(mappedBy = "users")
+    @JoinColumn
+    private List<Post> posts = new ArrayList<>();
+
+    //happyPoint가 새로운 게시글이 들어왔을때  플러스
+    public void setHappypoint(int happypoint) {
+        this.happypoint += happypoint;
+    }
+
+    public void modifyHappypoint(int happypoint , int tempHappypoint){
+        this.happypoint += (happypoint-tempHappypoint);
+    }
+
     public User(String username, String nickname, String pw) {
         this.username = username;
         this.nickname = nickname;
@@ -38,5 +54,4 @@ public class User {
 //    public void setHappyPoint(int happypoint) {
 //        this.happypoint = happypoint;
 //    }
-
 }

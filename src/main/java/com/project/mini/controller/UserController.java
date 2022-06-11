@@ -1,31 +1,17 @@
 package com.project.mini.controller;
 
-import com.project.mini.dto.HappyPointDto;
-import com.project.mini.dto.HappyPointResponseDto;
 import com.project.mini.dto.JoinRequestDto;
 import com.project.mini.dto.LoginRequestDto;
-import com.project.mini.models.User;
-import com.project.mini.repository.UserRepository;
 import com.project.mini.security.CustomLogoutSuccessHandler;
-import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.security.jwt.JwtTokenProvider;
 import com.project.mini.service.UserService;
-import jdk.javadoc.internal.doclets.formats.html.Contents;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
