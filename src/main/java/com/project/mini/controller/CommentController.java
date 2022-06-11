@@ -5,7 +5,6 @@ import com.project.mini.dto.CommentResponseDto;
 import com.project.mini.models.Comment;
 import com.project.mini.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
