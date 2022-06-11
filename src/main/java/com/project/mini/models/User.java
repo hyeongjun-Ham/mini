@@ -27,12 +27,16 @@ public class User {
     private String pw;
 
     @Column
-    private Long happypoint;
+    private int happypoint;
 
     public User(String username, String nickname, String pw) {
         this.username = username;
         this.nickname = nickname;
         this.pw = pw;
     }
+
+//    public void setHappyPoint(int happypoint) {
+//        this.happypoint = happypoint;
+//    }
 
 }
