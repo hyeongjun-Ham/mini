@@ -59,7 +59,7 @@ public class UserController {
             return "회원가입 실패";
         }
     }
-
+}
 //    @GetMapping("/user/logout")
 //    public void logout(HttpServletRequest request, HttpServletResponse response,
 //                         Authentication authentication) throws ServletException, IOException {
@@ -87,7 +87,7 @@ public class UserController {
 //        return currentUser;
 //    }
 
-}
+
 //headers.add("Access-Control-Expose-Headers", "token");
 //크로스 도
 
