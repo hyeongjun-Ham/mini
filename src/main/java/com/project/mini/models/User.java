@@ -32,7 +32,6 @@ public class User {
     @Column
     private int happypoint;
 
-
     @OneToMany
     @JoinColumn
     private List<Post> posts = new ArrayList<>();
@@ -42,4 +41,8 @@ public class User {
         this.nickname = nickname;
         this.pw = pw;
     }
+
+//    public void setHappyPoint(int happypoint) {
+//        this.happypoint = happypoint;
+//    }
 }
