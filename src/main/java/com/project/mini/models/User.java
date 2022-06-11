@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -28,7 +30,12 @@ public class User {
     private String pw;
 
     @Column
-    private Long happypoint;
+    private int happypoint;
+
+
+    @OneToMany
+    @JoinColumn
+    private List<Post> posts = new ArrayList<>();
 
     public User(String username, String nickname, String pw) {
         this.username = username;
