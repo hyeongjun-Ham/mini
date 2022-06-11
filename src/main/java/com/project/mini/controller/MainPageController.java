@@ -40,10 +40,10 @@ public class MainPageController {
             userRankResponseDtos.add(userRankResponseDto);
         }
 
-        userRankResponseDtos.sort(Comparator.comparingInt(UserRankResponseDto::getAvePoint)
-                .thenComparingInt(UserRankResponseDto::getCountPosts)
+        userRankResponseDtos.sort(Comparator.comparingInt(UserRankResponseDto::getAvePoint).reversed()
+                .thenComparingInt(UserRankResponseDto::getCountPosts).reversed()
                 .thenComparingLong(UserRankResponseDto::getCreatedUser)
-                .reversed());
+        );
 
         List<String> result = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
