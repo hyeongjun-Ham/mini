@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -27,7 +29,16 @@ public class User {
     private String pw;
 
     @Column
-    private Long happypoint;
+    private Long happypoint = 0L;
+
+    //happyPoint가 새로운 게시글이 들어왔을때  플러스
+    public void setHappypoint(Long happypoint) {
+        this.happypoint += happypoint;
+    }
+
+    public void modifyHappypoint(Long happypoint , Long tempHappypoint){
+        this.happypoint += (happypoint-tempHappypoint);
+    }
 
     public User(String username, String nickname, String pw) {
         this.username = username;

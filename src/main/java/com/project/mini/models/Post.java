@@ -16,6 +16,7 @@ import javax.persistence.*;
         sequenceName = "POST_SEQUENCES",
         initialValue = 1, allocationSize = 100
 )
+@Table(name = "POST")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
@@ -35,7 +36,8 @@ public class Post {
     @Column(nullable = false)
     private Long happypoint;
 
-    public Post(PostDto dto){
+    public Post(PostDto dto , User user){
+        this.user = user;
         this.happypoint = dto.getHappypoint();
         this.img = dto.getImg();
         this.content = dto.getContent();
