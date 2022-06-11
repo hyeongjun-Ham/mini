@@ -1,5 +1,6 @@
 package com.project.mini.models;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,14 +30,18 @@ public class User {
     private String pw;
 
     @Column
-    private Long happypoint = 0L;
+    private int happypoint;
+
+    @OneToMany(mappedBy = "users")
+    @JoinColumn
+    private List<Post> posts = new ArrayList<>();
 
     //happyPoint가 새로운 게시글이 들어왔을때  플러스
-    public void setHappypoint(Long happypoint) {
+    public void setHappypoint(int happypoint) {
         this.happypoint += happypoint;
     }
 
-    public void modifyHappypoint(Long happypoint , Long tempHappypoint){
+    public void modifyHappypoint(int happypoint , int tempHappypoint){
         this.happypoint += (happypoint-tempHappypoint);
     }
 
@@ -46,4 +51,7 @@ public class User {
         this.pw = pw;
     }
 
+//    public void setHappyPoint(int happypoint) {
+//        this.happypoint = happypoint;
+//    }
 }

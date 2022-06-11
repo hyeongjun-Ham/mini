@@ -4,8 +4,9 @@ import com.project.mini.dto.request.PostDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,8 +34,11 @@ public class Post {
     @ManyToOne
     private User user;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Comment> comments = new ArrayList<>();
+
     @Column(nullable = false)
-    private Long happypoint;
+    private int happypoint;
 
     public Post(PostDto dto , User user){
         this.user = user;

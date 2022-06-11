@@ -6,16 +6,12 @@ import com.project.mini.security.CustomLogoutSuccessHandler;
 import com.project.mini.security.jwt.JwtTokenProvider;
 import com.project.mini.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,16 +25,14 @@ public class UserController {
     // 회원 로그인
 
     @PostMapping("/user/login")
-    public ResponseEntity login(final HttpServletResponse response, @RequestBody LoginRequestDto loginRequestDto) {
+    public String login(final HttpServletResponse response, @RequestBody LoginRequestDto loginRequestDto) {
         if (userService.login(loginRequestDto)) {
             String token = jwtTokenProvider.createToken(loginRequestDto.getUsername());
             System.out.println(token);
             response.addHeader("Authorization", token);
-            return new ResponseEntity<>("success", HttpStatus.OK);
-        } else {
-//            response.sendError(100, "닉네임 또는 패스워드를 확인해주세요");
-            return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+            return "로그인 성공";
         }
+            return "로그인 실패";
     }
 
     // 회원 가입 요청 처리
@@ -48,23 +42,50 @@ public class UserController {
         if (res.equals("")) {
             return "회원가입 성공";
         } else {
-
-            return res;
+            return "회원가입 실패";
         }
     }
 
-    @GetMapping("/user/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response,
-                         Authentication authentication) throws ServletException, IOException {
-//        response.addHeader("Authorization", "");
+//    @GetMapping("/user/logout")
+//    public void logout(HttpServletRequest request, HttpServletResponse response,
+//                         Authentication authentication) throws ServletException, IOException {
+////        response.addHeader("Authorization", "");
 //
-//        return "redirect:/";
-        customLogoutSuccessHandler.onLogoutSuccess( request, response, authentication);
-    }
+//        if (authentication != null && authentication.getDetails() != null) {
+//            try {
+//                request.getHeader("Authentication").replace("");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        response.setStatus(HttpServletResponse.SC_OK);
+//        response.sendRedirect("/");
+//    }
 
-    @PostMapping("/api/test")
-    public String test() {
-        System.out.println("테스트");
-        return "출력됨";
-    }
+
+
+
+//    @GetMapping("/user/check")
+//    public String userCheck(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        // 로그인 되어 있는 ID의 username
+//        String currentUser = userDetails.getUser().getUsername();
+//
+//        return currentUser;
+//    }
+
 }
+//headers.add("Access-Control-Expose-Headers", "token");
+//크로스 도
+
+//fetch('http://localhost:8080/login', {
+//    method: 'POST',
+//    headers: {
+//        'Content-Type': 'application/json',
+//    },
+//    body: JSON.stringify({
+//        username: 'linda',
+//        password: 'password'
+//    })
+//}).then(response => {
+//    console.log(response.headers.get('Authorization'))
+//});
