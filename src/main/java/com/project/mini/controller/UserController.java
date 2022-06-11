@@ -64,31 +64,20 @@ public class UserController {
 //    public void logout(HttpServletRequest request, HttpServletResponse response,
 //                         Authentication authentication) throws ServletException, IOException {
 ////        response.addHeader("Authorization", "");
-////
-////        return "redirect:/";
-//        customLogoutSuccessHandler.onLogoutSuccess( request, response, authentication);
+//
+//        if (authentication != null && authentication.getDetails() != null) {
+//            try {
+//                request.getHeader("Authentication").replace("");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        response.setStatus(HttpServletResponse.SC_OK);
+//        response.sendRedirect("/");
 //    }
 
 
-//    @PatchMapping("/user/setHappyPoint")
-//    public HappyPointResponseDto setHp(@RequestBody HappyPointDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        // 로그인 되어 있는 ID의 username
-//        User currentUser = userDetails.getUser();
-//        currentUser.setHappypoint(requestDto.getHappyPoint());
-//
-////        UserRepository.save(partialUpdate, currentUser);
-//        System.out.println(currentUser.getId());
-//        System.out.println(currentUser.getUsername());
-//        System.out.println(currentUser.getNickname());
-//        System.out.println(currentUser.getHappypoint());
-//
-//
-//        HappyPointResponseDto responseDto = new HappyPointResponseDto();
-//        responseDto.setNickname(currentUser.getNickname());
-//        responseDto.setHappypoint(currentUser.getHappypoint());
-//
-//        return responseDto;
-//    }
+
 
 //    @GetMapping("/user/check")
 //    public String userCheck(@AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -100,7 +89,7 @@ public class UserController {
 
 }
 //headers.add("Access-Control-Expose-Headers", "token");
-//크로스 도메인
+//크로스 도
 
 //fetch('http://localhost:8080/login', {
 //    method: 'POST',
