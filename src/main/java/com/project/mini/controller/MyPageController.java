@@ -1,16 +1,15 @@
 package com.project.mini.controller;
 
 import com.project.mini.dto.response.MyPageResponseDto;
-import com.project.mini.models.Post;
-import com.project.mini.models.User;
 import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.service.MyPageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,4 +24,8 @@ public class MyPageController {
         return myPageService.allInfo(userDetails);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인을 확인해 주세요.");
+    }
 }
