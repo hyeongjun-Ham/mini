@@ -6,9 +6,13 @@ import com.project.mini.dto.LoginRequestDto;
 import com.project.mini.security.jwt.JwtTokenProvider;
 import com.project.mini.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -79,6 +83,4 @@ public class UserService {
         }
         return true;
     }
-
-
 }

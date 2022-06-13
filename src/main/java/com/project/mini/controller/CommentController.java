@@ -5,6 +5,8 @@ import com.project.mini.dto.CommentResponseDto;
 import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +43,14 @@ public class CommentController {
     public void deleteComment(@PathVariable Long commentId,
                               @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.deleteComment(commentId, userDetails);
+    }
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인을 확인해 주세요.");
     }
 }
