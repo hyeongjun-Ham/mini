@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MyPageResponseDto {
 
-    private String getNickname;
+    private String nickname;
     private List<Post> posts;
     private int myRank;
     private int totalUser;

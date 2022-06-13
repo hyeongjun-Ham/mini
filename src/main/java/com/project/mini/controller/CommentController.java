@@ -2,7 +2,6 @@ package com.project.mini.controller;
 
 import com.project.mini.dto.CommentRequestDto;
 import com.project.mini.dto.CommentResponseDto;
-import com.project.mini.models.Comment;
 import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +25,9 @@ public class CommentController {
     //댓글 작성
     @PostMapping("/api/comment/{postId}")
     public void createComment(@PathVariable Long postId,
-                                            @RequestBody CommentRequestDto requestDto,
-                                            @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        commentService.createComment(postId, requestDto,userDetails);
+                              @RequestBody CommentRequestDto requestDto,
+                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        commentService.createComment(postId, requestDto, userDetails);
     }
 
     @PutMapping("/api/comment/{commentId}")
@@ -41,7 +40,6 @@ public class CommentController {
     @DeleteMapping("/api/comment/{commentId}")
     public void deleteComment(@PathVariable Long commentId,
                               @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        commentService.deleteComment(commentId,userDetails);
+        commentService.deleteComment(commentId, userDetails);
     }
-
 }

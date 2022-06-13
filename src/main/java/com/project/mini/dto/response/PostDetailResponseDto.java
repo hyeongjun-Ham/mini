@@ -16,15 +16,15 @@ public class PostDetailResponseDto {
     private int happypoint;
     private String img;
     private String content;
-    private String modifiedAt;
-    private String createdAt;
+    private Long userId;
     private List<CommentResponseDto> comments;
 
-    public PostDetailResponseDto(User user, Post post, List<CommentResponseDto> commentList){
-        this.nickname = user.getNickname();
-        this.happypoint = user.getHappypoint();
-        this.img=post.getImg();
+    public PostDetailResponseDto(Post post, List<CommentResponseDto> commentList){
+        this.nickname = post.getUser().getNickname();
+        this.happypoint = post.getHappypoint();
+        this.img = post.getImg();
         this.content = post.getContent();
         this.comments = commentList;
+        this.userId = post.getUser().getId();
     }
 }

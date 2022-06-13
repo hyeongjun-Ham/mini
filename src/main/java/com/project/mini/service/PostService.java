@@ -48,8 +48,7 @@ public class PostService {
     }
 
     //디테일 페이지 게시글 조회
-    public PostDetailResponseDto getDetailPost(Long postid, UserDetailsImpl userDetails) {
-        User user = userRepo.findByUsername(userDetails.getUsername()).get();
+    public PostDetailResponseDto getDetailPost(Long postid) {
         Post post = postRepo.findByPostId(postid).get();
         List<CommentResponseDto> commentList = new ArrayList<>();
         List<Comment> allByPost_postId = commentRepository.findAllByPost_PostId(postid);
@@ -57,7 +56,7 @@ public class PostService {
             CommentResponseDto commentResponseDto1 = new CommentResponseDto(comment);
             commentList.add(commentResponseDto1);
         }
-        return new PostDetailResponseDto(user, post, commentList);
+        return new PostDetailResponseDto(post, commentList);
     }
 
 

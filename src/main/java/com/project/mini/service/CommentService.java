@@ -9,6 +9,8 @@ import com.project.mini.repository.CommentRepository;
 import com.project.mini.repository.PostRepository;
 import com.project.mini.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,13 +28,13 @@ public class CommentService {
 
         List<CommentResponseDto> list = new ArrayList<>();
         for (Comment comment : commentList ) {
-            String targetComment = comment.getComment();
-            Long userId = comment.getUser().getId();
+
             CommentResponseDto commentResponseDto = new CommentResponseDto();
-            commentResponseDto.setComment(targetComment);
-            commentResponseDto.setUserId(userId);
-            commentResponseDto.setCommentId(comment.getCommentId());
+            commentResponseDto.setUserId(comment.getUser().getId());
             commentResponseDto.setNickname(comment.getUser().getNickname());
+            commentResponseDto.setComment(comment.getComment());
+            commentResponseDto.setCommentId(comment.getCommentId());
+
             list.add(commentResponseDto);
         }
 
