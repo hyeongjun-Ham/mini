@@ -2,10 +2,14 @@ package com.project.mini.controller;
 
 import com.project.mini.dto.JoinRequestDto;
 import com.project.mini.dto.LoginRequestDto;
-import com.project.mini.security.CustomLogoutSuccessHandler;
+import com.project.mini.exception.RestApiException;
+import com.project.mini.models.User;
+import com.project.mini.repository.UserRepository;
 import com.project.mini.security.jwt.JwtTokenProvider;
 import com.project.mini.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,32 +21,42 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
 
     // 회원 로그인
 
     @PostMapping("/user/login")
-    public String login(final HttpServletResponse response, @RequestBody LoginRequestDto loginRequestDto) {
-        if (userService.login(loginRequestDto)) {
-            String token = jwtTokenProvider.createToken(loginRequestDto.getUsername());
-            System.out.println(token);
-            response.addHeader("Authorization", token);
-            return "로그인 성공";
+    public ResponseEntity login(final HttpServletResponse response, @RequestBody LoginRequestDto loginRequestDto) {
+        try {
+            User user = userRepository.findByUsername(loginRequestDto.getUsername()).orElseThrow(null);
+            if (userService.login(loginRequestDto)) {
+                String token = jwtTokenProvider.createToken(loginRequestDto.getUsername());
+                System.out.println(token);
+                response.addHeader("Authorization", token);
+            }
+            Long userId = user.getId();
+            return new ResponseEntity(userId, HttpStatus.OK);
+        } catch (IllegalArgumentException ex) {
+            RestApiException restApiException = new RestApiException();
+            restApiException.setHttpStatus(HttpStatus.BAD_REQUEST);
+            restApiException.setErrorMessage(ex.getMessage());
+            return new ResponseEntity(restApiException, HttpStatus.BAD_REQUEST);
         }
-        return "로그인 실패";
     }
 
     // 회원 가입 요청 처리
     @PostMapping("/user/signup")
-    public String registerUser(@Valid @RequestBody JoinRequestDto requestDto) {
-        String res = userService.join(requestDto);
-        if (res.equals("")) {
-            return "회원가입 성공";
-        } else {
-            return "회원가입 실패";
+    public ResponseEntity registerUser(@Valid @RequestBody JoinRequestDto requestDto) {
+        try {
+            return new ResponseEntity(userService.join(requestDto), HttpStatus.OK);
+        } catch (IllegalArgumentException ex) {
+            RestApiException restApiException = new RestApiException();
+            restApiException.setHttpStatus(HttpStatus.BAD_REQUEST);
+            restApiException.setErrorMessage(ex.getMessage());
+            return new ResponseEntity(restApiException, HttpStatus.BAD_REQUEST);
         }
     }
 }
