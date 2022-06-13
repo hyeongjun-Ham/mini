@@ -43,9 +43,10 @@
 
 ## Link
 <a href = "https://www.notion.so/tukkit/2-8-709e61c4fece42139845a00bf41fd07c">notion<br>
-<a href = "https://github.com/hayeooooon/w6_FE">frontend<br>
+<a href = "https://github.com/hayeooooon/w6_FE">frontend<br><br><br>
 
   
-
-
+## 우리팀이 해결한 문제
+1. 랭킹 중복
+2.
 
