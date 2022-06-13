@@ -3,8 +3,10 @@ package com.project.mini.controller;
 import com.project.mini.dto.CommentRequestDto;
 import com.project.mini.dto.CommentResponseDto;
 import com.project.mini.models.Comment;
+import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,24 +17,31 @@ public class CommentController {
 
     private final CommentService commentService;
 
+    //게시글의 댓글 보기
     @GetMapping("/api/comments/{postId}")
-    public List<Comment> showComment(@PathVariable Long postId) {
+    public List<CommentResponseDto> showComment(@PathVariable Long postId) {
         return commentService.showComment(postId);
     }
 
+    //댓글 작성
     @PostMapping("/api/comment/{postId}")
-    public CommentResponseDto createComment(@PathVariable Long postId, @RequestBody CommentRequestDto requestDto) {
-        return commentService.createComment(postId, requestDto);
+    public void createComment(@PathVariable Long postId,
+                                            @RequestBody CommentRequestDto requestDto,
+                                            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        commentService.createComment(postId, requestDto,userDetails);
     }
 
     @PutMapping("/api/comment/{commentId}")
-    public void updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto) {
-        commentService.updateComment(commentId, requestDto);
+    public void updateComment(@PathVariable Long commentId,
+                              @RequestBody CommentRequestDto requestDto,
+                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        commentService.updateComment(commentId, requestDto, userDetails);
     }
 
     @DeleteMapping("/api/comment/{commentId}")
-    public void deleteComment(@PathVariable Long commentId) {
-        commentService.deleteComment(commentId);
+    public void deleteComment(@PathVariable Long commentId,
+                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        commentService.deleteComment(commentId,userDetails);
     }
 
 }

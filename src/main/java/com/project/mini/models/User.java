@@ -32,9 +32,11 @@ public class User {
     @Column
     private int happypoint;
 
-    @OneToMany(mappedBy = "users")
-    @JoinColumn
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private List<Comment> comments = new ArrayList<>();
 
     //happyPoint가 새로운 게시글이 들어왔을때  플러스
     public void setHappypoint(int happypoint) {
@@ -51,7 +53,4 @@ public class User {
         this.pw = pw;
     }
 
-//    public void setHappyPoint(int happypoint) {
-//        this.happypoint = happypoint;
-//    }
 }

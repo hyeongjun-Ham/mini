@@ -39,7 +39,7 @@ public class PostController {
     }
 
     @PutMapping("/api/post/{postid}")
-    public PostResponseDto ModifyPost(@PathVariable Long postid,@RequestBody PostDto dto,  @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public PostResponseDto ModifyPost(@PathVariable Long postid,@RequestBody PostDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return service.modifyPost(postid,dto,userDetails);
     }
 
