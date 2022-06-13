@@ -8,7 +8,6 @@
 ## 구현 기능
 > 1. 회원가입/로그인
 - Spring Security, JWT 인증 방식으로 로그인 구현
-- ID 중복확인, 각 필드별 유효성체크
 
 > 2. 게시글 CRUD
 - 게시글 목록 조회, 등록, 수정, 삭제
@@ -47,6 +46,6 @@
 
   
 ## 우리팀이 해결한 문제
-1. 랭킹 중복
-2.
+1. @ExceptionHandler 사용하여 HttpStatus Response 보내기
+2. 
 
