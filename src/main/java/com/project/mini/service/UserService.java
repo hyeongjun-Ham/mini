@@ -34,7 +34,7 @@ public class UserService {
         // 회원 ID 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
-            return "중복된 id 입니다.";
+            throw new IllegalArgumentException("중복된 ID 입니다.");
         }
 
         // 회원 닉네임 중복 확인
@@ -45,15 +45,15 @@ public class UserService {
 
         // 회원가입 조건
         if (username.length() < 3) {
-            return "닉네임을 3자 이상 입력하세요";
+            throw new IllegalArgumentException("닉네임을 3자 이상 입력하세요");
         } else if (!Pattern.matches(pattern, username)) {
-            return "알파벳 대소문자와 숫자로만 입력하세요";
+            throw new IllegalArgumentException("알파벳 대소문자와 숫자로만 입력하세요");
         } else if (!pw.equals(pwcheck)) {
-            return "비밀번호가 일치하지 않습니다";
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
         } else if (pw.length() < 4) {
-            return "비밀번호를 4자 이상 입력하세요";
+            throw new IllegalArgumentException("비밀번호를 4자 이상 입력하세요");
         } else if (pw.contains(username)) {
-            return "비밀번호에 닉네임을 포함할 수 없습니다.";
+            throw new IllegalArgumentException("비밀번호에 닉네임을 포함할 수 없습니다.");
         }
 
         // 패스워드 인코딩
@@ -72,10 +72,10 @@ public class UserService {
                 .orElse(null);
         if (user != null) {
             if (!passwordEncoder.matches(loginRequestDto.getPw(), user.getPw())) {
-                return false;
+                throw new IllegalArgumentException("아이디 혹은 비밀번호가 다릅니다.");
             }
         } else {
-            return false;
+            throw new IllegalArgumentException("아이디 혹은 비밀번호가 다릅니다.");
         }
         return true;
     }

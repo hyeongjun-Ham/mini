@@ -1,5 +1,6 @@
 package com.project.mini.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.mini.dto.request.PostDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,8 @@ public class Post {
     private String img;
 
     @ManyToOne
+    @JoinColumn
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
