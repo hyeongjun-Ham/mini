@@ -10,13 +10,13 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Comment extends Timestamped{
+public class Comment{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long commentId;
 
-    @Column
+    @Column(nullable = false)
     private String comment;
 
     @ManyToOne
@@ -24,10 +24,17 @@ public class Comment extends Timestamped{
     @JsonIgnore //무한루프 끊기
     private Post post;
 
+    @ManyToOne
+    @JoinColumn
+    @JsonIgnore
+    private User user;
 
-    public Comment(Post post ,CommentRequestDto requestDto) {
+
+
+    public Comment(Post post ,CommentRequestDto requestDto, User user) {
         this.post = post;
         this.comment = requestDto.getComment();
+        this.user = user;
     }
 
     public void update(CommentRequestDto requestDto) {

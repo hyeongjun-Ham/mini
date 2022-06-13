@@ -64,26 +64,4 @@ public class UserController {
         String errorMessage = ex.getMessage();
         return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
     }
-
 }
-
-
-
-
-
-
-//headers.add("Access-Control-Expose-Headers", "token");
-//크로스 도
-
-//fetch('http://localhost:8080/login', {
-//    method: 'POST',
-//    headers: {
-//        'Content-Type': 'application/json',
-//    },
-//    body: JSON.stringify({
-//        username: 'linda',
-//        password: 'password'
-//    })
-//}).then(response => {
-//    console.log(response.headers.get('Authorization'))
-//});
