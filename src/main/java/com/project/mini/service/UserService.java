@@ -6,9 +6,12 @@ import com.project.mini.dto.LoginRequestDto;
 import com.project.mini.security.jwt.JwtTokenProvider;
 import com.project.mini.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -16,11 +19,8 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private static final String ADMIN_TOKEN = "AAABnv/xRVklrnYxKZ0aHgTBcXukeZygoC";
-    private final AuthenticationManager authenticationManager;
 
     //회원가입
     public String join(JoinRequestDto requestDto) {
@@ -45,7 +45,7 @@ public class UserService {
 
         // 회원가입 조건
         if (username.length() < 3) {
-            throw new IllegalArgumentException("닉네임을 3자 이상 입력하세요");
+            throw new IllegalArgumentException("아이디를 3자 이상 입력하세요");
         } else if (!Pattern.matches(pattern, username)) {
             throw new IllegalArgumentException("알파벳 대소문자와 숫자로만 입력하세요");
         } else if (!pw.equals(pwcheck)) {
@@ -79,6 +79,7 @@ public class UserService {
         }
         return true;
     }
+
 
 
 }
