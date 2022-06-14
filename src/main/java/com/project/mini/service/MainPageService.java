@@ -58,7 +58,7 @@ public class MainPageService {
             MainPageResponseDto build = MainPageResponseDto.builder()
                     .postId(post.getPostId())
                     .content(post.getContent())
-                    .img(post.getImg())
+                    .img(post.getImgUrl())
                     .nickname(post.getUser().getNickname())
                     .happypoint(post.getUser().getHappypoint())
                     .build();

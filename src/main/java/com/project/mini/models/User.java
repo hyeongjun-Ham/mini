@@ -44,7 +44,7 @@ public class User {
     }
 
     public void modifyHappypoint(int happypoint , int tempHappypoint){
-        this.happypoint += (happypoint-tempHappypoint);
+        this.happypoint -= (happypoint-tempHappypoint);
     }
 
     public User(String username, String nickname, String pw) {

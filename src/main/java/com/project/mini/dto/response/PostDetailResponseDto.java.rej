@@ -1,0 +1,10 @@
+diff a/src/main/java/com/project/mini/dto/response/PostDetailResponseDto.java b/src/main/java/com/project/mini/dto/response/PostDetailResponseDto.java	(rejected hunks)
+@@ -19,7 +19,7 @@
+     public PostDetailResponseDto(User user, Post post){
+         this.nickname = user.getNickname();
+         this.happypoint = user.getHappypoint();
+-        this.img=post.getImgUrl();
++        this.img=post.getImg();
+         this.content = post.getContent();
+     }
+ }

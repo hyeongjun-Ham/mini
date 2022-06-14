@@ -9,4 +9,8 @@ public class PostDto {
     private int happypoint;
     private String img;
     private String content;
+    public PostDto(int happypoint,String content){
+        this.happypoint = happypoint;
+        this.content = content;
+    }
 }

@@ -10,6 +10,7 @@ import com.project.mini.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,11 +21,13 @@ public class PostController {
     private final UserRepository userRepo;
     private final PostService service;
 
-
     //게시글 작성
     @PostMapping("/api/post")
-    public PostResponseDto registerPost(@RequestBody PostDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return service.register(dto,userDetails);
+    public PostResponseDto registerPost(@RequestPart("img") MultipartFile multipartFile,
+                                        @RequestParam("happypoint") int happypoint ,
+                                        @RequestParam("content") String content, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        PostDto dto = new PostDto(happypoint,content);
+        return service.register(dto,userDetails,multipartFile);
     }
 
 
@@ -34,14 +37,19 @@ public class PostController {
         return service.getDetailPost(postid);
     }
 
+
     @PutMapping("/api/post/{postid}")
-    public PostResponseDto ModifyPost(@PathVariable Long postid,@RequestBody PostDto dto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return service.modifyPost(postid,dto,userDetails);
+    public PostResponseDto ModifyPost(@PathVariable Long postid,
+                                      @RequestPart("img") MultipartFile multipartFile,
+                                      @RequestParam("happypoint") int happypoint ,
+                                      @RequestParam("content") String content,  @AuthenticationPrincipal UserDetailsImpl userDetails){
+        PostDto dto = new PostDto(happypoint,content);
+        return service.modifyPost(postid,dto,multipartFile,userDetails);
     }
 
     //
     @DeleteMapping("/api/post/{postid}")
-    public PostResponseDto DeletePost(@PathVariable Long postid){
-        return service.deletePost(postid);
+    public PostResponseDto DeletePost(@PathVariable Long postid , @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return service.deletePost(postid , userDetails);
     }
 }
