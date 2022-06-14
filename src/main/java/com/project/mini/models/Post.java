@@ -60,5 +60,6 @@ public class Post {
         this.content = dto.getContent();
         this.imgUrl = imgResult.get("url");
         this.imgFilename = imgResult.get("fileName");
+        this.happypoint = dto.getHappypoint();
     }
 }

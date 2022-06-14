@@ -100,13 +100,14 @@ public class PostService {
             s3Service.deleteFile(post.getImgFilename());
             Map<String, String> imgResult = s3Service.uploadFile(multipartFile);
 
-            //엔티티 업데이트
-            post.Update(dto, imgResult);
-
             //해피포인트 수정
             post.getUser().modifyHappypoint(post.getHappypoint(), dto.getHappypoint());
 
+            //엔티티 업데이트
+            post.Update(dto, imgResult);
+
             postRepo.save(post);
+
             return new PostResponseDto(true, "수정 완료");
         } catch (Exception e) {
             System.out.println(e.getMessage());
