@@ -19,7 +19,7 @@ bin/
 
 ### IntelliJ IDEA ###
 application.properties
-
+**/src/main/java/com/project/mini/aws/AwsS3Config.java
 .idea
 *.iws
 *.iml
