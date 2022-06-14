@@ -54,7 +54,7 @@ public class UserController {
 
 
     @GetMapping("/user/logout")
-    public void logout(final HttpServletResponse response, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public void logout(final HttpServletResponse response) {
         response.addHeader("Authorization", "");
     }
 

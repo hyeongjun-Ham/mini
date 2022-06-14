@@ -53,9 +53,19 @@ public class MyPageService {
             int eachHappyPoint = value.getHappypoint();
 
             int myAvePoint = eachHappyPoint / countPost;
-
+            // 해피포인트 적으면 랭킹 +1
             if (targetAvePoint < myAvePoint) {
                 myRank += 1;
+                //해피포인트 같으면 게시글수 비교해서 적으면 랭킹+1
+            } else if (targetAvePoint == myAvePoint) {
+                if (targetCountPost < countPost) {
+                    myRank += 1;
+                    //해피포인트, 게시글 수 전부 같을 때 아이디 생성일 늦으면 랭킹 +1
+                } else if (targetCountPost == countPost) {
+                    if (targetId > value.getId()) {
+                        myRank += 1;
+                    }
+                }
             }
         }
         return myRank;
