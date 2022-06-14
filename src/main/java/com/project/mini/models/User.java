@@ -12,7 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class User {
 
     // ID가 자동으로 생성 및 증가합니다.
@@ -43,8 +44,8 @@ public class User {
         this.happypoint += happypoint;
     }
 
-    public void modifyHappypoint(int happypoint , int tempHappypoint){
-        this.happypoint -= (happypoint-tempHappypoint);
+    public void modifyHappypoint(int tempHappypoint, int happypoint) {
+        this.happypoint -= (tempHappypoint - happypoint);
     }
 
     public User(String username, String nickname, String pw) {

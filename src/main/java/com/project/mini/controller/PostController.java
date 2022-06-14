@@ -8,7 +8,10 @@ import com.project.mini.repository.UserRepository;
 import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,11 +26,11 @@ public class PostController {
 
     //게시글 작성
     @PostMapping("/api/post")
-    public PostResponseDto registerPost(@RequestPart("img") MultipartFile multipartFile,
+    public void registerPost(@RequestPart("img") MultipartFile multipartFile,
                                         @RequestParam("happypoint") int happypoint ,
                                         @RequestParam("content") String content, @AuthenticationPrincipal UserDetailsImpl userDetails){
         PostDto dto = new PostDto(happypoint,content);
-        return service.register(dto,userDetails,multipartFile);
+        service.register(dto,userDetails,multipartFile);
     }
 
 
@@ -39,17 +42,32 @@ public class PostController {
 
 
     @PutMapping("/api/post/{postid}")
-    public PostResponseDto ModifyPost(@PathVariable Long postid,
+    public void ModifyPost(@PathVariable Long postid,
                                       @RequestPart("img") MultipartFile multipartFile,
                                       @RequestParam("happypoint") int happypoint ,
                                       @RequestParam("content") String content,  @AuthenticationPrincipal UserDetailsImpl userDetails){
         PostDto dto = new PostDto(happypoint,content);
-        return service.modifyPost(postid,dto,multipartFile,userDetails);
+        service.modifyPost(postid,dto,multipartFile,userDetails);
     }
 
     //
     @DeleteMapping("/api/post/{postid}")
-    public PostResponseDto DeletePost(@PathVariable Long postid , @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return service.deletePost(postid , userDetails);
+    public void DeletePost(@PathVariable Long postid , @AuthenticationPrincipal UserDetailsImpl userDetails){
+        service.deletePost(postid , userDetails);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<String> handleException(UsernameNotFoundException e) {
+
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("아이디가 없습니다.");
+    }
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<String> handleException(NullPointerException e) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인 해주세요");
     }
 }
