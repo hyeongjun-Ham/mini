@@ -1,4 +1,4 @@
-package com.project.mini.dto;
+package com.project.mini.dto.request;
 
 import lombok.Getter;
 

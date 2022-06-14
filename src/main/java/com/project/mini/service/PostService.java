@@ -1,6 +1,6 @@
 package com.project.mini.service;
 
-import com.project.mini.dto.CommentResponseDto;
+import com.project.mini.dto.response.CommentResponseDto;
 import com.project.mini.dto.request.PostDto;
 import com.project.mini.dto.response.PostDetailResponseDto;
 import com.project.mini.dto.response.PostResponseDto;
@@ -12,12 +12,8 @@ import com.project.mini.repository.PostRepository;
 import com.project.mini.repository.UserRepository;
 import com.project.mini.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 

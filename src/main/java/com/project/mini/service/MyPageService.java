@@ -8,7 +8,6 @@ import com.project.mini.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -17,19 +16,19 @@ public class MyPageService {
 
     private final UserRepository userRepository;
 
-
     public MyPageResponseDto allInfo(UserDetailsImpl userDetails) {
-        User user = userDetails.getUser();
+//        User user = userDetails.getUser();
+        Long userId = userDetails.getUser().getId();
+        User user = userRepository.findById(userId).orElse(null);
         String nickname = user.getNickname();
         List<Post> posts = user.getPosts();
+
         int myRank = checkMyRank(user);
         int totalUser = checkTotalUser();
 
-        return new MyPageResponseDto(nickname,posts,myRank,totalUser);
+        return new MyPageResponseDto(nickname, posts, myRank, totalUser);
     }
 
-
-    @Transactional
     public int checkMyRank(User user) {
         Long targetId = user.getId();
 
@@ -45,7 +44,7 @@ public class MyPageService {
         int targetAvePoint = targetHappyPoint / targetCountPost;
 
         //게시글이 있는 전체 유저리스트
-        List<User> userList = userRepository.findAllByPostsIsNotNull();
+        List<User> userList = userRepository.findDistinctAllByPostsIsNotNull();
 
         int myRank = 1;
         for (User value : userList) {

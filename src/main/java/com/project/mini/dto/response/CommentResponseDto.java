@@ -1,4 +1,4 @@
-package com.project.mini.dto;
+package com.project.mini.dto.response;
 
 import com.project.mini.models.Comment;
 import lombok.*;

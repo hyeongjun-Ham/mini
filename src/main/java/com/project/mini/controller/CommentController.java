@@ -1,13 +1,14 @@
 package com.project.mini.controller;
 
-import com.project.mini.dto.CommentRequestDto;
-import com.project.mini.dto.CommentResponseDto;
+import com.project.mini.dto.request.CommentRequestDto;
+import com.project.mini.dto.response.CommentResponseDto;
 import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class CommentController {
     }
 
     //댓글 작성
+
     @PostMapping("/api/comment/{postId}")
     public void createComment(@PathVariable Long postId,
                               @RequestBody CommentRequestDto requestDto,
@@ -44,13 +46,19 @@ public class CommentController {
                               @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.deleteComment(commentId, userDetails);
     }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인을 확인해 주세요.");
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<String> handleException(UsernameNotFoundException e) {
+
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("아이디가 없습니다.");
+    }
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<String> handleException(NullPointerException e) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인 해주세요");
     }
 }

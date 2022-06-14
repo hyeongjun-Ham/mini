@@ -1,7 +1,7 @@
 package com.project.mini.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.mini.dto.CommentRequestDto;
+import com.project.mini.dto.request.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

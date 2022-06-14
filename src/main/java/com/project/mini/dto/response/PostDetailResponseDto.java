@@ -1,8 +1,6 @@
 package com.project.mini.dto.response;
 
-import com.project.mini.dto.CommentResponseDto;
 import com.project.mini.models.Post;
-import com.project.mini.models.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

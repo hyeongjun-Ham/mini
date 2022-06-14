@@ -23,9 +23,8 @@ public class MyPageController {
 
         return myPageService.allInfo(userDetails);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인을 확인해 주세요.");
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<String> handleException(NullPointerException e) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인 해주세요");
     }
 }

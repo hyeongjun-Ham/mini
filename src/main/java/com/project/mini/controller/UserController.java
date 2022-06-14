@@ -1,8 +1,8 @@
 package com.project.mini.controller;
 
-import com.project.mini.dto.JoinRequestDto;
-import com.project.mini.dto.LoginRequestDto;
-import com.project.mini.dto.LoginResponseDto;
+import com.project.mini.dto.request.JoinRequestDto;
+import com.project.mini.dto.request.LoginRequestDto;
+import com.project.mini.dto.response.LoginResponseDto;
 import com.project.mini.models.User;
 import com.project.mini.repository.UserRepository;
 import com.project.mini.security.UserDetailsImpl;

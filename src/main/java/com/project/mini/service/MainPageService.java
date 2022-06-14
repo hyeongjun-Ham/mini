@@ -24,7 +24,7 @@ public class MainPageService {
 
 
     public List<RankingResponseDto> rankingList() {
-        List<User> allUser = userRepository.findAllByPostsIsNotNull();
+        List<User> allUser = userRepository.findDistinctAllByPostsIsNotNull();
 
         List<UserRankResponseDto> userRankResponseDtos = new ArrayList<>();
 
