@@ -40,7 +40,7 @@ public class PostController {
     }
 
     //
-    @DeleteMapping("/api/deletepost/{postid}")
+    @DeleteMapping("/api/post/{postid}")
     public PostResponseDto DeletePost(@PathVariable Long postid){
         return service.deletePost(postid);
     }
