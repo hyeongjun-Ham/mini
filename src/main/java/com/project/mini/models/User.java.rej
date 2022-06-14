@@ -1,0 +1,11 @@
+diff a/src/main/java/com/project/mini/models/User.java b/src/main/java/com/project/mini/models/User.java	(rejected hunks)
+@@ -32,7 +32,8 @@
+     @Column
+     private int happypoint;
+ 
+-    @OneToMany(mappedBy = "user")
++    @OneToMany(mappedBy = "users")
++    @JoinColumn
+     private List<Post> posts = new ArrayList<>();
+ 
+     //happyPoint가 새로운 게시글이 들어왔을때  플러스

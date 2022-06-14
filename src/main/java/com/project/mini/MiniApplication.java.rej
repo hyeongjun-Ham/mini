@@ -1,0 +1,10 @@
+diff a/src/main/java/com/project/mini/MiniApplication.java b/src/main/java/com/project/mini/MiniApplication.java	(rejected hunks)
+@@ -6,8 +6,6 @@
+ 
+ import javax.annotation.PostConstruct;
+ import java.util.TimeZone;
+-
+-
+ @EnableJpaAuditing
+ @SpringBootApplication
+ public class MiniApplication {

@@ -1,0 +1,8 @@
+diff a/src/main/java/com/project/mini/dto/request/PostDto.java b/src/main/java/com/project/mini/dto/request/PostDto.java	(rejected hunks)
+@@ -1,6 +1,5 @@
+ package com.project.mini.dto.request;
+ 
+-import com.project.mini.models.Post;
+ import lombok.Getter;
+ import lombok.NoArgsConstructor;
+ 
