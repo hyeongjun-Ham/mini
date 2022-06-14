@@ -1,6 +1,5 @@
 package com.project.mini.dto.request;
 
-import com.project.mini.models.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

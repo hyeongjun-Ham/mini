@@ -9,29 +9,30 @@ import com.project.mini.repository.PostRepository;
 import com.project.mini.repository.UserRepository;
 import com.project.mini.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepo;
     private final UserRepository userRepo;
-    private final AwsS3Service s3Service;
     //게시글 작성
     //로그인한 유저 정보를 받아와서
     //새로등록한 게시글의 happyPoint만큼 +해주고 DB에 업데이트
 
-    public PostResponseDto register(PostDto dto , UserDetailsImpl userDetails, MultipartFile multipartFile){
+    public PostResponseDto register(PostDto dto , UserDetailsImpl userDetails){
         String message;
-        Map<String , String> imgResult = s3Service.uploadFile(multipartFile);
 
         User user = userRepo.findByUsername(userDetails.getUsername()).get();
             //해피포인트 증가
             //새로운 게시글 등록
-            Post post = new Post(dto , user, imgResult);
+
+            Post post = new Post(dto , user);
             post.getUser().setHappypoint(dto.getHappypoint());
             postRepo.save(post);
 

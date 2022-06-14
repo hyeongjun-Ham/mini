@@ -19,7 +19,7 @@ public class PostDetailResponseDto {
     public PostDetailResponseDto(User user, Post post){
         this.nickname = user.getNickname();
         this.happypoint = user.getHappypoint();
-        this.img=post.getImgUrl();
+        this.img=post.getImg();
         this.content = post.getContent();
     }
 }

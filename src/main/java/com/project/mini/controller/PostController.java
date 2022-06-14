@@ -1,21 +1,19 @@
 package com.project.mini.controller;
+
 import com.project.mini.dto.request.PostDto;
 import com.project.mini.dto.response.PostDetailResponseDto;
 import com.project.mini.dto.response.PostResponseDto;
 import com.project.mini.models.Post;
+import com.project.mini.models.User;
 import com.project.mini.repository.PostRepository;
 import com.project.mini.repository.UserRepository;
 import com.project.mini.security.UserDetailsImpl;
-import com.project.mini.service.AwsS3Service;
 import com.project.mini.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
