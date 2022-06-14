@@ -75,6 +75,6 @@ public class CommentService {
 
         if (nowUserId.equals(dbId)) {
             commentRepository.deleteById(commentId);
-        }
+        } else throw new IllegalArgumentException("댓글을 작성한 사람이 아닙니다.");
     }
 }
