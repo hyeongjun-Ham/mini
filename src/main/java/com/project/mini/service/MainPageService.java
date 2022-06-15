@@ -60,7 +60,7 @@ public class MainPageService {
                     .content(post.getContent())
                     .img(post.getImgUrl())
                     .nickname(post.getUser().getNickname())
-                    .happypoint(post.getUser().getHappypoint())
+                    .happypoint(post.getHappypoint())
                     .build();
             list.add(build);
         }

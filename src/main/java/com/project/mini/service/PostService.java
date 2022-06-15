@@ -1,9 +1,8 @@
 package com.project.mini.service;
 
-import com.project.mini.dto.response.CommentResponseDto;
 import com.project.mini.dto.request.PostDto;
+import com.project.mini.dto.response.CommentResponseDto;
 import com.project.mini.dto.response.PostDetailResponseDto;
-import com.project.mini.dto.response.PostResponseDto;
 import com.project.mini.models.Comment;
 import com.project.mini.models.Post;
 import com.project.mini.models.User;
@@ -17,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Map;
 
 
@@ -107,5 +105,23 @@ public class PostService {
         if (!post.getUser().getUsername().equals(userDetails.getUsername())) {
             throw new IllegalArgumentException("게시글 작성자만 조작할 수 있습니다.");
         }
+    }
+
+    public void modifyPost(Long postId, PostDto dto, UserDetailsImpl userDetails) {
+        //이미지의 수정은 기존에 있던 이미지의 삭제 후 다시등록으로
+
+        //넘겨받은 수정하고 싶은 postId를 받아와서 조회
+        Post post = postRepo.findByPostId(postId).get();
+
+        //post를 작성한 유저와 로그인한 유저가 같은 사람이면 수정가능 아니면 예외발생
+        validationCheck(post, userDetails);
+
+        //해피포인트 수정
+        post.getUser().modifyHappypoint(post.getHappypoint(), dto.getHappypoint());
+
+        //엔티티 업데이트
+        post.Update(dto);
+
+        postRepo.save(post);
     }
 }

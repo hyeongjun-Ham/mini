@@ -13,6 +13,7 @@ public class PostDetailResponseDto {
     private String nickname;
     private int happypoint;
     private String img;
+    private String imgFileName;
     private String content;
     private Long userId;
     private List<CommentResponseDto> comments;
@@ -22,6 +23,7 @@ public class PostDetailResponseDto {
         this.nickname = post.getUser().getNickname();
         this.happypoint = post.getHappypoint();
         this.img = post.getImgUrl();
+        this.imgFileName = post.getImgFilename();
         this.content = post.getContent();
         this.comments = commentList;
         this.userId = post.getUser().getId();

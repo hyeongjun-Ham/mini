@@ -28,33 +28,37 @@ public class PostController {
     //게시글 작성
     @PostMapping("/api/post")
     public void registerPost(@RequestPart("img") MultipartFile multipartFile,
-                                        @RequestParam("happypoint") int happypoint ,
-                                        @RequestParam("content") String content, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        PostDto dto = new PostDto(happypoint,content);
-        service.register(dto,userDetails,multipartFile);
+                             @RequestParam("happypoint") int happypoint,
+                             @RequestParam("content") String content, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        PostDto dto = new PostDto(happypoint, content);
+        service.register(dto, userDetails, multipartFile);
     }
 
 
     //디테일 페이지 게시글 조회
     @GetMapping("/api/postdetail/{postid}")
-    public PostDetailResponseDto getPost(@PathVariable Long postid){
+    public PostDetailResponseDto getPost(@PathVariable Long postid) {
         return service.getDetailPost(postid);
     }
 
 
     @PutMapping("/api/post/{postid}")
     public void ModifyPost(@PathVariable Long postid,
-                                      @RequestPart("img") MultipartFile multipartFile,
-                                      @RequestParam("happypoint") int happypoint ,
-                                      @RequestParam("content") String content,  @AuthenticationPrincipal UserDetailsImpl userDetails){
-        PostDto dto = new PostDto(happypoint,content);
-        service.modifyPost(postid,dto,multipartFile,userDetails);
+                           @RequestPart(value = "img", required = false) MultipartFile multipartFile,
+                           @RequestParam("happypoint") int happypoint,
+                           @RequestParam("content") String content, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        PostDto dto = new PostDto(happypoint, content);
+        if (multipartFile==null) {
+            service.modifyPost(postid,dto,userDetails);
+        }else {
+            service.modifyPost(postid, dto, multipartFile, userDetails);
+        }
     }
 
     //
     @DeleteMapping("/api/post/{postid}")
-    public void DeletePost(@PathVariable Long postid , @AuthenticationPrincipal UserDetailsImpl userDetails){
-        service.deletePost(postid , userDetails);
+    public void DeletePost(@PathVariable Long postid, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        service.deletePost(postid, userDetails);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -67,10 +71,12 @@ public class PostController {
 
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("아이디가 없습니다.");
     }
+
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<String> handleException(NullPointerException e) {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인 해주세요");
     }
+
     @ExceptionHandler(MultipartException.class)
     public ResponseEntity<String> handleException(MultipartException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 파일 형식입니다.");

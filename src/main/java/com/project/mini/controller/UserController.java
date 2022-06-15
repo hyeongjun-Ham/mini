@@ -5,15 +5,12 @@ import com.project.mini.dto.request.LoginRequestDto;
 import com.project.mini.dto.response.LoginResponseDto;
 import com.project.mini.models.User;
 import com.project.mini.repository.UserRepository;
-import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.security.jwt.JwtTokenProvider;
 import com.project.mini.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;

@@ -35,8 +35,8 @@ public class AwsS3Service {
         objectMetadata.setContentLength(multipartFile.getSize());
 
         //fileName에 파라미터로 들어온 파일의 이름을 할당.
-        String fileName = multipartFile.getOriginalFilename();
-        fileName = createFileName(fileName);
+        String rawFileName = multipartFile.getOriginalFilename();
+        String fileName = createFileName(rawFileName);
         try(InputStream inputStream = multipartFile.getInputStream()) {
             //amazonS3객체의 putObject 메서드로 db에 저장
             amazonS3.putObject(new PutObjectRequest(bucket, fileName , inputStream, objectMetadata)
@@ -47,7 +47,7 @@ public class AwsS3Service {
 
         Map<String , String> result = new HashMap<>();
         result.put("url" , String.valueOf(amazonS3.getUrl(bucket,fileName)));
-        result.put("fileName" , fileName);
+        result.put("fileName" , rawFileName);
         return result;
     }
 

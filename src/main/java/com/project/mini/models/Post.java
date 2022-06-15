@@ -18,7 +18,7 @@ import java.util.Map;
 @SequenceGenerator(
         name = "POST_ID_GENERATOR",
         sequenceName = "POST_SEQUENCES",
-        initialValue = 1, allocationSize = 100
+        initialValue = 1, allocationSize = 1
 )
 @Table(name = "POST")
 public class Post {
@@ -60,6 +60,11 @@ public class Post {
         this.content = dto.getContent();
         this.imgUrl = imgResult.get("url");
         this.imgFilename = imgResult.get("fileName");
+        this.happypoint = dto.getHappypoint();
+    }
+
+    public void Update(PostDto dto) {
+        this.content = dto.getContent();
         this.happypoint = dto.getHappypoint();
     }
 }

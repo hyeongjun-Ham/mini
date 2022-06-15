@@ -40,7 +40,7 @@ public class CommentService {
 
     }
 
-    public void createComment(Long postId, CommentRequestDto requestDto, UserDetailsImpl userDetails) throws NullPointerException{
+    public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto, UserDetailsImpl userDetails) throws NullPointerException{
 
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 없습니다.")
@@ -50,6 +50,9 @@ public class CommentService {
         Comment comment = new Comment(post,requestDto,user);
 
         commentRepository.save(comment);
+
+        return new CommentResponseDto(comment);
+
     }
 
     public void updateComment(Long commentId, CommentRequestDto requestDto, UserDetailsImpl userDetails){
