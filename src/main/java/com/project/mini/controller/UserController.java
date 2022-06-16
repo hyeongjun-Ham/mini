@@ -30,23 +30,27 @@ public class UserController {
     @PostMapping("/user/login")
     public LoginResponseDto login(final HttpServletResponse response, @RequestBody LoginRequestDto loginRequestDto) {
 
-        User user = userRepository.findByUsername(loginRequestDto.getUsername()).orElseThrow(null);
+        User user = userRepository.findByUsername(loginRequestDto.getUsername()).orElseThrow(
+                () -> new IllegalArgumentException("해당 아이디가 없습니다.")
+        );
+
         if (userService.login(loginRequestDto)) {
             String token = jwtTokenProvider.createToken(loginRequestDto.getUsername());
             System.out.println(token);
             response.addHeader("Authorization", token);
         }
-        LoginResponseDto loginResponseDto = new LoginResponseDto();
-        loginResponseDto.setUserId(user.getId());
-        loginResponseDto.setNickname(user.getNickname());
+//        LoginResponseDto loginResponseDto = new LoginResponseDto();
+//        loginResponseDto.setUserId(user.getId());
+//        loginResponseDto.setNickname(user.getNickname());
 
-        return loginResponseDto;
+//        return loginResponseDto;
+        return new LoginResponseDto(user.getId(),user.getNickname());
     }
 
     // 회원 가입 요청 처리
     @PostMapping("/user/signup")
-    public String registerUser(@Valid @RequestBody JoinRequestDto requestDto) {
-            return userService.join(requestDto);
+    public void registerUser(@Valid @RequestBody JoinRequestDto requestDto) {
+        userService.join(requestDto);
     }
 
 
@@ -55,10 +59,10 @@ public class UserController {
         response.addHeader("Authorization", "");
     }
 
-    @ExceptionHandler( IllegalArgumentException.class)
-    public ResponseEntity handleException(IllegalArgumentException ex) {
-
-        String errorMessage = ex.getMessage();
-        return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+//        String errorMessage = ex.getMessage();
+//        return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }

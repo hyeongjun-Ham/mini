@@ -34,7 +34,6 @@ public class PostService {
     //로그인한 유저 정보를 받아와서
     //새로등록한 게시글의 happyPoint만큼 +해주고 DB에 업데이트
 
-
     public Long register(PostDto dto, UserDetailsImpl userDetails, MultipartFile multipartFile) {
 
         Map<String, String> imgResult = s3Service.uploadFile(multipartFile);

@@ -19,8 +19,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     //회원가입
-    public String join(JoinRequestDto requestDto) {
-        String error = "";
+    public void join(JoinRequestDto requestDto) {
         String username = requestDto.getUsername();
         String nickname = requestDto.getNickname();
         String pw = requestDto.getPw();
@@ -34,7 +33,7 @@ public class UserService {
         }
 
         // 회원 닉네임 중복 확인
-        Optional<User> foundUserNickname = userRepository.findByNickname(requestDto.getNickname());
+        Optional<User> foundUserNickname = userRepository.findByNickname(nickname);
         if (foundUserNickname.isPresent()) {
             throw new IllegalArgumentException("사용자 닉네임이 이미 존재합니다.");
         }
@@ -59,11 +58,10 @@ public class UserService {
         // 유저 정보 저장
         User user = new User(username, nickname, pw);
         userRepository.save(user);
-        return error;
     }
 
     // 로그인
-    public Boolean login(LoginRequestDto loginRequestDto){
+    public Boolean login(LoginRequestDto loginRequestDto) {
         User user = userRepository.findByUsername(loginRequestDto.getUsername())
                 .orElse(null);
         if (user != null) {

@@ -25,7 +25,6 @@ public class MainPageService {
 
     public List<RankingResponseDto> rankingList() {
         List<User> allUser = userRepository.findDistinctAllByPostsIsNotNull();
-
         List<UserRankResponseDto> userRankResponseDtos = new ArrayList<>();
 
         for (User user : allUser) {
@@ -39,13 +38,14 @@ public class MainPageService {
             userRankResponseDtos.add(new UserRankResponseDto(avePoint, nickname, countPosts, createdUser));
         }
 
-        userRankResponseDtos.sort(Comparator.comparingInt(UserRankResponseDto::getAvePoint)
+        userRankResponseDtos
+                .sort(Comparator.comparingInt(UserRankResponseDto::getAvePoint)
                 .thenComparingInt(UserRankResponseDto::getCountPosts).reversed()
         );
 
         List<RankingResponseDto> result = new ArrayList<>();
         for (int i = 0; i < userRankResponseDtos.size(); i++) {
-            if (i==5) break;
+            if (i == 5) break;
             result.add(new RankingResponseDto(userRankResponseDtos.get(i).getNickName()));
         }
         return result;
