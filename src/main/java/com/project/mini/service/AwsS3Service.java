@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -63,14 +64,15 @@ public class AwsS3Service {
     }
 
     private String getFileExtension(String fileName) { // file 형식이 잘못된 경우를 확인하기 위해 만들어진 로직이며, 파일 타입과 상관없이 업로드할 수 있게 하기 위해 .의 존재 유무만 판단하였습니다.
-//        ArrayList<String> fileValidate = new ArrayList<>();
-//        fileValidate.add(".jpg");
-//        fileValidate.add(".png");
-//        String idxFileName = fileName.substring(fileName.lastIndexOf("."));
-//        if (!fileValidate.contains(idxFileName)){
-//            System.out.println("idxFileName = " + idxFileName);
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일(" + fileName + ") 입니다.");
-//        }
+        ArrayList<String> fileValidate = new ArrayList<>();
+        fileValidate.add(".jpg");
+        fileValidate.add(".png");
+        fileValidate.add(".jpeg");
+        String idxFileName = fileName.substring(fileName.lastIndexOf("."));
+        if (!fileValidate.contains(idxFileName)){
+            System.out.println("idxFileName = " + idxFileName);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일(" + fileName + ") 입니다.");
+        }
         return fileName.substring(fileName.lastIndexOf("."));
     }
 }

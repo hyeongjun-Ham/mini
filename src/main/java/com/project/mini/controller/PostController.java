@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequiredArgsConstructor
@@ -66,9 +67,14 @@ public class PostController {
     public ResponseEntity<String> handleNullPointerException(NullPointerException e) {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body("로그인 해주세요");
     }
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<String> handleResponseStatusException(ResponseStatusException e) {
+        return ResponseEntity.status(499).body("잘못된 형식의 파일입니다.");
+    }
 
     @ExceptionHandler(MultipartException.class)
     public ResponseEntity<String> handleMultipartException(MultipartException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 파일 형식입니다.");
     }
+
 }

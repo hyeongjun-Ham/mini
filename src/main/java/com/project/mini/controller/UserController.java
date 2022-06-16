@@ -39,11 +39,6 @@ public class UserController {
             System.out.println(token);
             response.addHeader("Authorization", token);
         }
-//        LoginResponseDto loginResponseDto = new LoginResponseDto();
-//        loginResponseDto.setUserId(user.getId());
-//        loginResponseDto.setNickname(user.getNickname());
-
-//        return loginResponseDto;
         return new LoginResponseDto(user.getId(),user.getNickname());
     }
 
