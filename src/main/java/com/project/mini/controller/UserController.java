@@ -48,12 +48,6 @@ public class UserController {
         userService.join(requestDto);
     }
 
-
-    @GetMapping("/user/logout")
-    public void logout(final HttpServletResponse response) {
-        response.addHeader("Authorization", "");
-    }
-
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
