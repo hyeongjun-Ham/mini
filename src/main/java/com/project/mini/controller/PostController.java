@@ -47,11 +47,11 @@ public class PostController {
                            @RequestParam("happypoint") int happypoint,
                            @RequestParam("content") String content, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         PostDto dto = new PostDto(happypoint, content);
-        if (multipartFile==null) {
-            service.modifyPost(postid,dto,userDetails);
-        }else {
-            service.modifyPost(postid, dto, multipartFile, userDetails);
-        }
+//        if (multipartFile==null) {
+//            service.modifyPost(postid,dto,userDetails);
+//        }else {
+        service.modifyPost(postid, dto, multipartFile, userDetails);
+//        }
     }
 
     //

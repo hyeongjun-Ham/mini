@@ -37,6 +37,7 @@ public class MyPageService {
         if (target.getPosts().size() == 0) {
             return userRepository.findAll().size();
         }
+
         //타겟의 게시글 수 , 해피포인트
         int targetCountPost = target.getPosts().size();
         int targetHappyPoint = target.getHappypoint();

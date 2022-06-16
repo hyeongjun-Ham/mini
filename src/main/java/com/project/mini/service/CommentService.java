@@ -25,7 +25,7 @@ public class CommentService {
         List<Comment> commentList = commentRepository.findAllByPost_PostId(postId);
 
         List<CommentResponseDto> list = new ArrayList<>();
-        for (Comment comment : commentList ) {
+        for (Comment comment : commentList) {
 
             CommentResponseDto commentResponseDto = new CommentResponseDto();
             commentResponseDto.setUserId(comment.getUser().getId());
@@ -40,14 +40,14 @@ public class CommentService {
 
     }
 
-    public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto, UserDetailsImpl userDetails) throws NullPointerException{
+    public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto, UserDetailsImpl userDetails) throws NullPointerException {
 
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("게시글이 없습니다.")
         );
         User user = userDetails.getUser();
 
-        Comment comment = new Comment(post,requestDto,user);
+        Comment comment = new Comment(post, requestDto, user);
 
         commentRepository.save(comment);
 
@@ -55,29 +55,34 @@ public class CommentService {
 
     }
 
-    public void updateComment(Long commentId, CommentRequestDto requestDto, UserDetailsImpl userDetails){
-
+    public void updateComment(Long commentId, CommentRequestDto requestDto, UserDetailsImpl userDetails) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 없습니다.")
         );
         Long nowUserId = userDetails.getUser().getId();
         Long dbId = comment.getUser().getId();
+        validCommentOwner(nowUserId, dbId);
 
-        if (nowUserId.equals(dbId)) {
-            comment.update(requestDto);
-            commentRepository.save(comment);
-        } else throw new IllegalArgumentException("댓글을 작성한 사람이 아닙니다.");
+        comment.update(requestDto);
+        commentRepository.save(comment);
+
     }
 
-    public void deleteComment(Long commentId, UserDetailsImpl userDetails){
+    public void deleteComment(Long commentId, UserDetailsImpl userDetails) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 없습니다.")
         );
         Long nowUserId = userDetails.getUser().getId();
         Long dbId = comment.getUser().getId();
+        validCommentOwner(nowUserId, dbId);
 
-        if (nowUserId.equals(dbId)) {
-            commentRepository.deleteById(commentId);
-        } else throw new IllegalArgumentException("댓글을 작성한 사람이 아닙니다.");
+        commentRepository.deleteById(commentId);
+
+    }
+
+    public void validCommentOwner(Long nowUserId, Long dbId) {
+        if (!nowUserId.equals(dbId)) {
+            throw new IllegalArgumentException("댓글을 작성한 사람이 아닙니다.");
+        }
     }
 }
