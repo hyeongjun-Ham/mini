@@ -62,7 +62,5 @@ public class UserController {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-//        String errorMessage = ex.getMessage();
-//        return new ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }

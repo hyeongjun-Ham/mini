@@ -106,37 +106,7 @@ public class PostService {
             post.Update(dto);
         }
         postRepo.save(post);
-
-//        //기존 이미지 삭제후 재등록
-//        s3Service.deleteFile(post.getTransImgFileName());
-//        Map<String, String> imgResult = s3Service.uploadFile(multipartFile);
-
-//        //해피포인트 수정
-//        post.getUser().modifyHappypoint(post.getHappypoint(), dto.getHappypoint());
-//
-//        //엔티티 업데이트
-//        post.Update(dto, imgResult);
-//
-//        postRepo.save(post);
     }
-
-//    public void modifyPost(Long postId, PostDto dto, UserDetailsImpl userDetails) {
-//        //이미지의 수정은 기존에 있던 이미지의 삭제 후 다시등록으로
-//
-//        //넘겨받은 수정하고 싶은 postId를 받아와서 조회
-//        Post post = postRepo.findByPostId(postId).get();
-//
-//        //post를 작성한 유저와 로그인한 유저가 같은 사람이면 수정가능 아니면 예외발생
-//        validationCheck(post, userDetails);
-//
-//        //해피포인트 수정
-//        post.getUser().modifyHappypoint(post.getHappypoint(), dto.getHappypoint());
-//
-//        //엔티티 업데이트
-//        post.Update(dto);
-//
-//        postRepo.save(post);
-//    }
 
     //게시글 작성자가 로그인한 유저인지확인
     private void validationCheck(Post post, UserDetailsImpl userDetails) {
