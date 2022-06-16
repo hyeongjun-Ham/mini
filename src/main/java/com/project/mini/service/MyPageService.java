@@ -32,12 +32,12 @@ public class MyPageService {
     public int checkMyRank(User user) {
         Long targetId = user.getId();
 
-        //타겟의 게시글 수 , 해피포인트
         User target = userRepository.findById(targetId).orElse(null);
         //게시글 작성 안했을 때 꼴지로 보냄
         if (target.getPosts().size() == 0) {
             return userRepository.findAll().size();
         }
+        //타겟의 게시글 수 , 해피포인트
         int targetCountPost = target.getPosts().size();
         int targetHappyPoint = target.getHappypoint();
 

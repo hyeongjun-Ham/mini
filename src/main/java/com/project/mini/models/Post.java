@@ -37,6 +37,10 @@ public class Post {
     @Column(nullable = false)
     private String imgFilename;
 
+
+    @Column(nullable = false)
+    private String transImgFileName;
+
     @ManyToOne
     @JoinColumn
     @JsonIgnore
@@ -50,16 +54,18 @@ public class Post {
 
 
     public Post(PostDto dto , User user , Map<String , String> imgResult){
-        this.user = user;
-        this.happypoint = dto.getHappypoint();
         this.imgUrl = imgResult.get("url");
         this.imgFilename = imgResult.get("fileName");
+        this.transImgFileName = imgResult.get("transImgFileName");
+        this.user = user;
+        this.happypoint = dto.getHappypoint();
         this.content = dto.getContent();
     }
     public void Update(PostDto dto , Map<String , String> imgResult){
-        this.content = dto.getContent();
         this.imgUrl = imgResult.get("url");
         this.imgFilename = imgResult.get("fileName");
+        this.transImgFileName = imgResult.get("transImgFileName");
+        this.content = dto.getContent();
         this.happypoint = dto.getHappypoint();
     }
 

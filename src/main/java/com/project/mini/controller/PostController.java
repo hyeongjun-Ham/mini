@@ -2,9 +2,7 @@ package com.project.mini.controller;
 
 import com.project.mini.dto.request.PostDto;
 import com.project.mini.dto.response.PostDetailResponseDto;
-import com.project.mini.dto.response.PostResponseDto;
-import com.project.mini.repository.PostRepository;
-import com.project.mini.repository.UserRepository;
+import com.project.mini.dto.response.PostIdResponseDto;
 import com.project.mini.security.UserDetailsImpl;
 import com.project.mini.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -16,22 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class PostController {
 
-
-    private final PostRepository repo;
-    private final UserRepository userRepo;
     private final PostService service;
 
     //게시글 작성
     @PostMapping("/api/post")
-    public void registerPost(@RequestPart("img") MultipartFile multipartFile,
-                             @RequestParam("happypoint") int happypoint,
-                             @RequestParam("content") String content, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public PostIdResponseDto registerPost(@RequestPart("img") MultipartFile multipartFile,
+                                          @RequestParam("happypoint") int happypoint,
+                                          @RequestParam("content") String content, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         PostDto dto = new PostDto(happypoint, content);
-        service.register(dto, userDetails, multipartFile);
+
+        return new PostIdResponseDto(service.register(dto, userDetails, multipartFile)) ;
     }
 
 

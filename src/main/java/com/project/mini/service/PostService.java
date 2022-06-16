@@ -35,18 +35,18 @@ public class PostService {
     //새로등록한 게시글의 happyPoint만큼 +해주고 DB에 업데이트
 
 
-    public void register(PostDto dto, UserDetailsImpl userDetails, MultipartFile multipartFile) {
+    public Long register(PostDto dto, UserDetailsImpl userDetails, MultipartFile multipartFile) {
 
         Map<String, String> imgResult = s3Service.uploadFile(multipartFile);
 
         User user = userRepo.findByUsername(userDetails.getUsername()).get();
 
-        //해피포인트 증가
         //새로운 게시글 등록
         Post post = new Post(dto, user, imgResult);
+        //해피포인트 증가
         post.getUser().setHappypoint(dto.getHappypoint());
         postRepo.save(post);
-
+        return post.getPostId();
     }
 
     //디테일 페이지 게시글 조회
@@ -70,7 +70,7 @@ public class PostService {
         validationCheck(post, userDetails);
 
         //등록되어있던 이미지도 삭제
-        s3Service.deleteFile(post.getImgFilename());
+        s3Service.deleteFile(post.getTransImgFileName());
         post.getUser().modifyHappypoint(post.getHappypoint(), 0);
         //객체 삭제
         postRepo.delete(post);
@@ -88,7 +88,7 @@ public class PostService {
         validationCheck(post, userDetails);
 
         //기존 이미지 삭제후 재등록
-        s3Service.deleteFile(post.getImgFilename());
+        s3Service.deleteFile(post.getTransImgFileName());
         Map<String, String> imgResult = s3Service.uploadFile(multipartFile);
 
         //해피포인트 수정
