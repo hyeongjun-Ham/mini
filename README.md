@@ -45,7 +45,5 @@
 <a href = "https://github.com/hayeooooon/w6_FE">frontend<br><br><br>
 
   
-## 우리팀이 해결한 문제
-1. @ExceptionHandler 사용하여 HttpStatus Response 보내기
-2. 
+
 
