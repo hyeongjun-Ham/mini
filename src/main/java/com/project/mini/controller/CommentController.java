@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class CommentController {
-
+// 수정
     private final CommentService commentService;
 
     //게시글의 댓글 보기
